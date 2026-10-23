@@ -38,4 +38,46 @@ public class Book {
         return checkedOutTo;
     }
 
+    //*** setters ***
+    public void setId(int id) {
+        this.id = id;
+    }
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    //methods checkOut() & checkIn()
+    public void checkOut(String name) {
+        isCheckedOut = true;
+        checkedOutTo = name;
+        System.out.printf("%s has been checked out to %s.\n", this.title, name);
+    }
+    public void checkIn() {
+        isCheckedOut = false;
+        checkedOutTo = "";
+        System.out.println(this.title + " has been checked in.");
+    }
+    @Override
+    public String toString() {
+        //if unavailable
+        if (isCheckedOut) {
+            return String.format("""
+                    %s
+                        ID: %d
+                        ISBN: %s
+                        Checked out to: %s""", title, id, isbn, checkedOutTo);
+        }
+        //if available
+        return String.format("""
+                    %s
+                        ID: %d
+                        ISBN: %s""", title, id, isbn);
+
+    }
+
 }
+
