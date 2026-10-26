@@ -34,14 +34,63 @@ public class Main {
                 new Book(20, "9780062060624", "The Help"),
         };
 
-        // display menu
-        String currentChoice = "";
+                // display menu
+                String currentChoice = "";
 
-        // keep showing menu until user enter x
-        while (!currentChoice.equalsIgnoreCase("X")) {
+                // keep showing menu until user enter x
+                while (!currentChoice.equalsIgnoreCase("X")) {
 
+                    displayMenuOptions();
 
-        }
+                    // Get user choice
+                    currentChoice = scnr.nextLine().trim();
+
+                    // Navigate through menu options
+                    switch (currentChoice.toUpperCase()) {
+
+                        case "1":
+                            // Show available books
+                            showAvailableBooks(inventory);
+
+                            // Allow user to check out a book
+                            checkOut(inventory, scnr);
+                            break;
+
+                        case "2":
+                            // Show checked out books
+                            showCheckedOutBooks(inventory);
+
+                            // Ask user to check in or return
+                            String checkInChoice = "";
+
+                            while (!checkInChoice.equalsIgnoreCase("X")) {
+
+                                System.out.print("Press C to check in a book, or X to return: ");
+                                checkInChoice = scnr.nextLine().trim();
+
+                                if (checkInChoice.equalsIgnoreCase("C")) {
+                                    checkIn(inventory, scnr);
+                                    break;
+
+                                }
+                                else if (!checkInChoice.equalsIgnoreCase("X")) {
+                                    System.out.println("Invalid choice! Enter C or X.");
+                                }
+                            }
+                            break;
+
+                        case "X":
+                            System.out.println("Thank you for visiting!");
+                            break;
+
+                        default:
+                            System.out.println("Invalid choice. Please try again.");
+                    }
+                }
+
+                scnr.close();
+
+    }
 
         // methods
         // display menu options
@@ -49,13 +98,12 @@ public class Main {
 
 
             System.out.print("""
-                    \\n--------------------------------
-                                    What would you like to do?
-                                        1. Show Available Books
-                                        2. Show Checked Out Books
-                                        X. Exit
-                                    Enter choice (1, 2, X):\\s""\");
-                    """)
+                \n--------------------------------
+                What would you like to do?
+                    1. Show Available Books
+                    2. Show Checked Out Books
+                    X. Exit
+                Enter choice (1, 2, X):\s""");
         }
 
         // show available books method
@@ -100,7 +148,7 @@ public class Main {
         public static void checkOut (Book[]inventory, Scanner scnr){
 
             // Ask user for book ID
-            System.out.print("\nEnter Book ID to check out (0 to return): ");
+            System.out.print("\nEnter Book ID to check out, or (0 to return home): ");
 
             int bookId;
 
@@ -127,7 +175,7 @@ public class Main {
                     // Check if book is available
                     if (!book.isCheckedOut()) {
 
-                        System.out.print("Enter your name: ");
+                        System.out.print("Enter your full name: ");
                         String name = scnr.nextLine().trim();
 
                         if (name.isEmpty()) {
@@ -138,7 +186,7 @@ public class Main {
                         // Call checkOut() from Book class
                         book.checkOut(name);
                     } else {
-                        System.out.println("This book is already checked out.");
+                        System.out.println("This book is already checked out. Please try again.");
                     }
                     return;
 
@@ -186,4 +234,4 @@ public class Main {
     }
 
 
-}
+
