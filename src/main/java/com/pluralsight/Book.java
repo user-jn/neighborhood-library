@@ -1,6 +1,7 @@
 package com.pluralsight;
-// creating the properties of the class book + storing using data structures + accessibility
-public class Book {
+    // creating the properties of the class book + storing using data structures + accessibility
+    public class Book {
+
     private int id;
     private String isbn;
     private String title;
